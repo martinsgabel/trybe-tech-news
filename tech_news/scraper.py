@@ -47,9 +47,9 @@ def scrape_news(html_content):
     title = selector.css("h1.entry-title ::text").get().strip()
     timestamp = selector.css("li.meta-date ::text").get()
     writer = selector.css("a.url.fn.n ::text").get()
-    readind_time = selector.css(
-        "li.meta-reading-time ::text"
-    ).get().split(" ")[0]
+    readind_time = (
+        selector.css("li.meta-reading-time ::text").get().split(" ")[0]
+    )
     summary = selector.css(
         "div.entry-content > p:nth-of-type(1) *::text"
     ).get()
@@ -62,12 +62,25 @@ def scrape_news(html_content):
         "writer": writer,
         "readind_time": int(readind_time),
         "summary": summary,
-        "category": category
+        "category": category,
     }
-    
+
     return news_dict
 
 
 # Requisito 5
 def get_tech_news(amount):
-    """Seu código deve vir aqui"""
+    site_html = fetch("https://blog.betrybe.com")
+    news_url_list = []
+    scrapped_news_list = []
+    while len(news_url_list) < amount:
+        scrape_updates(site_html)
+        link_list = scrape_next_page_link(site_html)
+        news_url_list.append(link_list)
+
+    for index in range(amount):
+        news_html = fetch(news_url_list[index])
+        single_scrapped_news = scrape_news(news_html)
+        scrapped_news_list.append(single_scrapped_news)
+
+    return scrapped_news_list
