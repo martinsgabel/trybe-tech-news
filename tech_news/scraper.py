@@ -12,7 +12,7 @@ def fetch(url):
             url, headers={"user-agent": "Fake user-agent"}, timeout=3
         )
         response.raise_for_status()
-    except (ConnectTimeout, HTTPError):
+    except (ConnectTimeout, HTTPError, requests.ReadTimeout):
         return None
 
     return response.text
@@ -22,7 +22,7 @@ def fetch(url):
 def scrape_updates(html_content):
     selector = Selector(html_content)
     news_urls = []
-    for news in selector.css("main > div > div > div"):
+    for news in selector.css("div.archive-wrap > div > article"):
         link = news.css(
             "article > div > div:nth-child(2) > header > h2 > a ::attr(href)"
         ).get()
