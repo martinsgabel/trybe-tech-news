@@ -44,7 +44,7 @@ def scrape_next_page_link(html_content):
 def scrape_news(html_content):
     selector = Selector(html_content)
 
-    url = selector.css("head > link:nth-child(10) ::attr(href)").get()
+    url = selector.css("head > link[rel='canonical']::attr(href)").get()
     title = selector.css("h1.entry-title ::text").get().strip()
     timestamp = selector.css("li.meta-date ::text").get()
     writer = selector.css("a.url ::text").get()
