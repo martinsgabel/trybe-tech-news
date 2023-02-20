@@ -36,7 +36,7 @@ def search_top_5():
 
 def analyzer_menu():
     """Seu código deve vir aqui, and it will"""
-    menu_text = input(
+    menu_input = input(
         "Selecione uma das opções a seguir:\n"
         " 0 - Popular o banco com notícias;\n"
         " 1 - Buscar notícias por título;\n"
@@ -57,7 +57,7 @@ def analyzer_menu():
     try:
         if options == "5":
             print("Encerrando script")
-        options[menu_text]()
+        options[menu_input]()
     except (KeyError, ValueError):
         return print("Opção inválida", file=sys.stderr)
 
