@@ -31,7 +31,11 @@ def search_category():
 
 
 def search_top_5():
-    return top_5_categories()
+    return print(top_5_categories())
+
+
+def termination():
+    return print("Encerrando script\n")
 
 
 def analyzer_menu():
@@ -52,11 +56,10 @@ def analyzer_menu():
         "2": search_data,
         "3": search_category,
         "4": search_top_5,
+        "5": termination,
     }
 
     try:
-        if options == "5":
-            print("Encerrando script")
         options[menu_input]()
     except (KeyError, ValueError):
         return print("Opção inválida", file=sys.stderr)
