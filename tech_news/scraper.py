@@ -48,7 +48,7 @@ def scrape_news(html_content):
     title = selector.css("h1.entry-title ::text").get().strip()
     timestamp = selector.css("li.meta-date ::text").get()
     writer = selector.css("a.url ::text").get()
-    readind_time = (
+    reading_time = (
         selector.css("li.meta-reading-time ::text").get().split(" ")[0]
     )
     summary = "".join(selector.css(
@@ -61,7 +61,7 @@ def scrape_news(html_content):
         "title": title,
         "timestamp": timestamp,
         "writer": writer,
-        "readind_time": int(readind_time),
+        "reading_time": int(reading_time),
         "summary": summary,
         "category": category,
     }
