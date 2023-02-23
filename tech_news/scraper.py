@@ -4,6 +4,8 @@ import requests
 from requests.exceptions import ConnectTimeout, HTTPError
 import time
 
+from tech_news.database import create_news
+
 
 def fetch(url):
     time.sleep(1)
@@ -84,5 +86,7 @@ def get_tech_news(amount):
         single_news_html = fetch(news_url_list[index])
         single_scrapped_news = scrape_news(single_news_html)
         scrapped_news_list.append(single_scrapped_news)
+
+    create_news(scrapped_news_list)
 
     return scrapped_news_list
